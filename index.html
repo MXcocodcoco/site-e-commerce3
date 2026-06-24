@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerangaStreet | Collection Streetwear Sénégal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="logo" id="headerLogo" style="cursor: pointer;">
+            <span class="logo-accent-green">T</span>
+            <span class="logo-accent-yellow">E</span>
+            <span class="logo-accent-red">R</span>ANGASTREET
+        </div>
+        <div class="header-right">
+            <div class="cart-icon" id="cartBtn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Wrapper -->
+    <main id="app-wrapper">
+
+        <!-- VIEW 1: CATALOGUE (ACCUEIL) -->
+        <section id="view-catalog" class="app-view active">
+            <!-- Hero Banner Section -->
+            <div class="hero-section">
+                <div class="hero-bg-overlay"></div>
+                <div class="hero-image" id="heroImage"></div>
+                <div class="hero-content">
+                    <p class="hero-eyebrow">TERANGASTREET COLLECTION 2026</p>
+                    <h1 class="hero-title">REPRÉSENTE LE SÉNÉGAL</h1>
+                    <p class="hero-subtitle">L'alliance de la culture des Lions et de l'univers streetwear premium.</p>
+                    <div class="scroll-down-indicator" id="scrollIndicator">
+                        <span>DÉCOUVRIR LA COLLECTION</span>
+                        <i class="fa-solid fa-chevron-down animate-bounce"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div class="products-section" id="productsAnchor">
+                <div class="section-header">
+                    <h2 class="section-title">LA COLLECTION</h2>
+                    <div class="senegal-flag-divider">
+                        <span class="flag-green"></span>
+                        <span class="flag-yellow"><i class="fa-solid fa-star"></i></span>
+                        <span class="flag-red"></span>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="products-grid" id="productsGrid">
+                    <!-- Dynamic Loading State -->
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Chargement des pièces exclusives...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- VIEW 2: DÉTAIL PRODUIT -->
+        <section id="view-product-detail" class="app-view">
+            <div class="back-nav">
+                <button class="btn-back" id="backToCatalog"><i class="fa-solid fa-arrow-left"></i> RETOUR AU CATALOGUE</button>
+            </div>
+
+            <div class="product-detail-container" id="productDetailContainer">
+                <!-- Dynamically populated by app.js -->
+            </div>
+        </section>
+
+
+        <!-- VIEW 3: PANIER D'ACHAT -->
+        <section id="view-cart" class="app-view">
+            <div class="back-nav">
+                <button class="btn-back" id="backFromCart"><i class="fa-solid fa-arrow-left"></i> RETOUR AU CATALOGUE</button>
+            </div>
+            
+            <div class="cart-container">
+                <h2 class="cart-title">VOTRE PANIER</h2>
+                
+                <div class="cart-content" id="cartContent">
+                    <!-- Dynamically populated by app.js -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: PAIEMENT (CHECKOUT) -->
+        <section id="view-checkout" class="app-view">
+            <div class="back-nav">
+                <button class="btn-back" id="backToProduct"><i class="fa-solid fa-arrow-left"></i> CONTINUER LES ACHATS</button>
+            </div>
+
+            <div class="checkout-grid">
+                <!-- Shipping Form (Left) -->
+                <div class="checkout-form-container">
+                    <h2 class="checkout-title">INFORMATIONS DE LIVRAISON</h2>
+                    <form id="checkoutForm" class="checkout-form">
+                        <div class="form-group">
+                            <label for="clientNom">Nom complet *</label>
+                            <input type="text" id="clientNom" required placeholder="Ex: Moussa Diop">
+                        </div>
+                        <div class="form-group">
+                            <label for="clientAdresse">Adresse complète *</label>
+                            <textarea id="clientAdresse" rows="3" required placeholder="Ex: Rue 10, Médina, Dakar, Sénégal"></textarea>
+                        </div>
+                        
+                        <h2 class="checkout-title" style="margin-top: 2rem;">MÉTHODE DE PAIEMENT</h2>
+                        
+                        <div class="payment-methods">
+                            <div class="payment-method-option active" data-method="carte">
+                                <i class="fa-solid fa-credit-card"></i>
+                                <span>Carte Bancaire</span>
+                            </div>
+                            <div class="payment-method-option" data-method="wave">
+                                <img src="wave-logo.png" alt="Wave" class="payment-logo">
+                                <span>Wave</span>
+                            </div>
+                            <div class="payment-method-option" data-method="orange_money">
+                                <img src="orange-logo.png" alt="Orange Money" class="payment-logo">
+                                <span>Orange Money</span>
+                            </div>
+                            <div class="payment-method-option" data-method="paypal">
+                                <i class="fa-brands fa-paypal"></i>
+                                <span>PayPal</span>
+                            </div>
+                        </div>
+
+                        <p class="payment-notice" id="paymentNotice">Le paiement par carte bancaire est simulé pour ce projet.</p>
+                        
+                        <div id="payment-fields-carte" class="payment-fields active">
+                            <div class="form-group">
+                                <label for="cardNumber">Numéro de carte fictif</label>
+                                <div class="input-icon-wrapper">
+                                    <i class="fa-solid fa-credit-card input-icon"></i>
+                                    <input type="text" id="cardNumber" placeholder="4000 1234 5678 9010" value="4000 1234 5678 9010" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="cardExpiry">Expiration</label>
+                                    <input type="text" id="cardExpiry" placeholder="12/28" value="12/28" disabled>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="cardCvv">CVC / CVV</label>
+                                    <input type="text" id="cardCvv" placeholder="123" value="123" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="payment-fields-wave" class="payment-fields">
+                            <p class="payment-redirect-notice"><i class="fa-solid fa-arrow-up-right-from-square"></i> Vous serez redirigé vers la page sécurisée de Wave pour entrer votre numéro et effectuer le paiement.</p>
+                        </div>
+
+                        <div id="payment-fields-orange_money" class="payment-fields">
+                            <p class="payment-redirect-notice"><i class="fa-solid fa-arrow-up-right-from-square"></i> Vous serez redirigé vers la page sécurisée d'Orange Money pour entrer votre numéro et effectuer le paiement.</p>
+                        </div>
+
+                        <div id="payment-fields-paypal" class="payment-fields">
+                            <p class="payment-redirect-notice"><i class="fa-brands fa-paypal"></i> Vous serez redirigé vers PayPal pour vous connecter et valider le paiement.</p>
+                        </div>
+
+                        <button type="submit" class="btn-submit-order" id="btnPlaceOrder">
+                            CONFIRMER ET PAYER <span id="paymentAmount">0 FCFA</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Order Summary (Right) -->
+                <div class="checkout-summary-container">
+                    <h2 class="checkout-title">RÉSUMÉ DE LA COMMANDE</h2>
+                    <div class="summary-card" id="summaryCard">
+                        <!-- Dynamically populated by app.js -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 4: COMMANDE SUCCÈS -->
+        <section id="view-success" class="app-view">
+            <div class="success-container">
+                <!-- Header animation & badge -->
+                <div class="success-header">
+                    <div class="success-icon-wrapper">
+                        <div class="success-circle">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                    </div>
+                    <h1 class="success-title">PAIEMENT EFFECTUÉ !</h1>
+                    <p class="success-message">Jërëjëf ! Votre commande a été enregistrée et payée avec succès.</p>
+                </div>
+
+                <!-- Live Delivery Tracker -->
+                <div class="delivery-tracker-card">
+                    <h3 class="tracker-title">Suivi de livraison</h3>
+                    <div class="tracker-steps">
+                        <div class="tracker-step completed">
+                            <div class="step-icon"><i class="fa-solid fa-circle-check"></i></div>
+                            <span class="step-label">Validée</span>
+                        </div>
+                        <div class="tracker-step active">
+                            <div class="step-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                            <span class="step-label">En préparation</span>
+                        </div>
+                        <div class="tracker-step">
+                            <div class="step-icon"><i class="fa-solid fa-truck"></i></div>
+                            <span class="step-label">Expédiée</span>
+                        </div>
+                        <div class="tracker-step">
+                            <div class="step-icon"><i class="fa-solid fa-house-chimney"></i></div>
+                            <span class="step-label">Livrée</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Receipt Ticket -->
+                <div class="receipt-ticket">
+                    <div class="ticket-header">
+                        <div class="ticket-brand">
+                            <span class="logo-accent-green">T</span><span class="logo-accent-yellow">E</span><span class="logo-accent-red">R</span>ANGASTREET
+                        </div>
+                        <div class="ticket-status">REÇU DE PAIEMENT</div>
+                    </div>
+                    
+                    <div class="ticket-divider-top"></div>
+                    
+                    <div class="ticket-body">
+                        <div class="receipt-details" id="successOrderDetails">
+                            <!-- Dynamically populated -->
+                        </div>
+                        
+                        <!-- Simulated barcode for absolute authenticity -->
+                        <div class="simulated-barcode">
+                            <div class="barcode-lines"></div>
+                            <span class="barcode-number" id="successBarcodeNumber">TS-00000-PAYMENT</span>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-divider-bottom"></div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="success-actions">
+                    <button class="btn-return-home" id="btnReturnHome">
+                        <i class="fa-solid fa-house"></i> RETOUR À L'ACCUEIL
+                    </button>
+                    
+                    <div class="action-row">
+                        <button class="btn-action-sec" id="btnPrintReceipt">
+                            <i class="fa-solid fa-download"></i> TÉLÉCHARGER LE REÇU
+                        </button>
+                        <a href="#" target="_blank" class="btn-action-sec btn-whatsapp" id="btnWhatsAppTrack">
+                            <i class="fa-brands fa-whatsapp"></i> SUIVRE SUR WHATSAPP
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="social-contact-box">
+            <h3 class="social-title">POUR PLUS D'INFORMATIONS</h3>
+            <div class="social-links">
+                <a href="https://www.instagram.com/chief.mxliam?igsh=MXBwbWh0amczMGF4aw==" target="_blank" class="social-link instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>@chief.mxliam</span>
+                </a>
+                <a href="https://www.snapchat.com/add/chief.mxliam?share_id=qNBObxI-RuWQDdEja3mNPA&locale=fr_FR" target="_blank" class="social-link snapchat">
+                    <i class="fa-brands fa-snapchat"></i>
+                    <span>Charles🪽</span>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TERANGASTREET. Tous droits réservés.</p>
+            <p class="footer-subtext">Stage chez BM-Tech - Sénégal Streetwear Project</p>
+        </div>
+    </footer>
+
+    <!-- Supabase JS Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Canvas Confetti for Celebration -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Application Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

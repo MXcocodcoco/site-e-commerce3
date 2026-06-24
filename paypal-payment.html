@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectez-vous à votre compte PayPal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --paypal-blue: #0079C1;
+            --paypal-darkblue: #00457C;
+            --bg-color: #f5f7fa;
+            --text-color: #2c2e2f;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .header {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .header i {
+            color: var(--paypal-darkblue);
+            font-size: 2.5rem;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 460px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #eaeced;
+            margin-bottom: 40px;
+        }
+
+        .amount-section {
+            padding: 30px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eaeced;
+        }
+
+        .amount {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+            margin: 0 0 5px 0;
+        }
+
+        .merchant-name {
+            font-size: 1rem;
+            color: #555;
+            margin: 0;
+        }
+
+        .form-container {
+            padding: 30px 40px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #9da3a6;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--paypal-blue);
+            box-shadow: 0 0 5px rgba(0, 121, 193, 0.4);
+        }
+
+        .btn-pay {
+            width: 100%;
+            background-color: var(--paypal-blue);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-pay:hover {
+            background-color: var(--paypal-darkblue);
+        }
+
+        .btn-pay:disabled {
+            background-color: #9da3a6;
+            cursor: not-allowed;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #eaeced;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .divider span {
+            color: #666;
+            background-color: #fff;
+            padding: 0 10px;
+            font-size: 0.9rem;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background-color: #fff;
+            color: var(--paypal-blue);
+            border: 1px solid var(--paypal-blue);
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #f5f7fa;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            padding: 20px;
+        }
+        
+        .footer a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        /* Success State */
+        .success-state {
+            display: none;
+            padding: 50px 30px;
+            text-align: center;
+        }
+
+        .success-icon {
+            color: #0079C1;
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .success-text {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .btn-return {
+            background-color: var(--paypal-blue);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 24px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn-return:hover {
+            background-color: var(--paypal-darkblue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <i class="fa-brands fa-paypal"></i>
+    </div>
+
+    <div class="payment-container" id="mainContainer">
+        <!-- Section de Paiement -->
+        <div id="paymentSection">
+            <div class="amount-section">
+                <h2 class="amount" id="displayAmount">0 FCFA</h2>
+                <p class="merchant-name">TerangaStreet</p>
+                <p style="color: #888; font-size: 0.85rem; margin-top: 5px;" id="displayProduct">Article</p>
+            </div>
+
+            <div class="form-container">
+                <h3 class="form-title">Payer avec PayPal</h3>
+                <form id="paypalForm">
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Email ou numéro de mobile" required>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="Mot de passe" required>
+                    </div>
+
+                    <button type="submit" class="btn-pay" id="btnSubmit">Connexion et Paiement</button>
+                    
+                    <div class="divider"><span>OU</span></div>
+                    
+                    <button type="button" class="btn-secondary">Créer un compte</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Section de Succès -->
+        <div id="successSection" class="success-state">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h2 class="success-title">Vous avez payé TerangaStreet</h2>
+            <p class="success-text">Un reçu a été envoyé à votre adresse e-mail. Vous allez être redirigé vers le site du marchand.</p>
+            <a href="index.html" class="btn-return" id="btnReturn">Retour au site du marchand</a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <a href="#">Conditions</a> | <a href="#">Confidentialité</a> | <a href="#">Aide</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Récupérer les paramètres de l'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = urlParams.get('amount') || '0';
+            const product = urlParams.get('product') || 'Article';
+
+            // Formater le montant
+            const formattedAmount = new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
+            
+            document.getElementById('displayAmount').innerText = formattedAmount;
+            document.getElementById('displayProduct').innerText = product;
+
+            const form = document.getElementById('paypalForm');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simuler le chargement
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = 'Connexion sécurisée...';
+
+                setTimeout(() => {
+                    // Cacher la section de paiement et afficher le succès
+                    document.getElementById('paymentSection').style.display = 'none';
+                    document.getElementById('successSection').style.display = 'block';
+                }, 2000);
+            });
+            
+            // Fermer l'onglet au retour si ouvert via window.open
+            document.getElementById('btnReturn').addEventListener('click', (e) => {
+                if (window.opener) {
+                    e.preventDefault();
+                    window.opener.postMessage({ type: 'PAYMENT_SUCCESS' }, '*');
+                    window.close();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

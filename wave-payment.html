@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Sécurisé - Wave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --wave-blue: #1cc5f2;
+            --wave-dark: #121212;
+            --bg-color: #f2f5f8;
+            --text-color: #333;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+        }
+
+        .payment-container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: var(--wave-blue);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .merchant-info {
+            background-color: #f9fbfd;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .merchant-name {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--wave-dark);
+            margin: 0;
+        }
+
+        .form-container {
+            padding: 30px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--wave-blue);
+            box-shadow: 0 0 0 3px rgba(28, 197, 242, 0.15);
+        }
+
+        .btn-pay {
+            width: 100%;
+            background-color: var(--wave-blue);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+
+        .btn-pay:hover {
+            background-color: #15b0db;
+        }
+
+        .btn-pay:active {
+            transform: scale(0.98);
+        }
+
+        .btn-pay:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+
+        /* Success State */
+        .success-state {
+            display: none;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .success-icon {
+            color: #00A859;
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            color: var(--wave-dark);
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .btn-return {
+            background-color: transparent;
+            color: var(--wave-blue);
+            border: 2px solid var(--wave-blue);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn-return:hover {
+            background-color: var(--wave-blue);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="payment-container" id="mainContainer">
+        <div class="header">
+            <i class="fa-solid fa-water"></i>
+            <h1>Paiement Wave</h1>
+        </div>
+
+        <!-- Section de Paiement -->
+        <div id="paymentSection">
+            <div class="merchant-info">
+                <div class="merchant-name">Paiement pour : <strong>TerangaStreet</strong></div>
+                <h2 class="amount" id="displayAmount">0 FCFA</h2>
+                <div style="color: #777; font-size: 0.9rem; margin-top: 5px;" id="displayProduct">Article</div>
+            </div>
+
+            <div class="form-container">
+                <form id="waveForm">
+                    <div class="form-group">
+                        <label for="phoneNumber">Numéro de téléphone Wave</label>
+                        <input type="tel" id="phoneNumber" placeholder="Ex: 77 123 45 67" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="firstName">Prénom</label>
+                        <input type="text" id="firstName" placeholder="Votre prénom" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Nom</label>
+                        <input type="text" id="lastName" placeholder="Votre nom" required>
+                    </div>
+
+                    <button type="submit" class="btn-pay" id="btnSubmit">Confirmer le paiement</button>
+                </form>
+            </div>
+            
+            <div class="footer">
+                <i class="fa-solid fa-lock"></i> Transaction 100% sécurisée
+            </div>
+        </div>
+
+        <!-- Section de Succès -->
+        <div id="successSection" class="success-state">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h2 class="success-title">Paiement Réussi !</h2>
+            <p class="success-text">Votre paiement de <strong id="successAmount">0 FCFA</strong> a été envoyé avec succès à TerangaStreet.</p>
+            <a href="index.html" class="btn-return" id="btnReturn">Retour à la boutique</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Récupérer les paramètres de l'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = urlParams.get('amount') || '0';
+            const product = urlParams.get('product') || 'Article';
+
+            // Formater le montant
+            const formattedAmount = new Intl.NumberFormat('fr-FR').format(amount) + ' FCFA';
+            
+            document.getElementById('displayAmount').innerText = formattedAmount;
+            document.getElementById('displayProduct').innerText = product;
+            document.getElementById('successAmount').innerText = formattedAmount;
+
+            const form = document.getElementById('waveForm');
+            const btnSubmit = document.getElementById('btnSubmit');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Simuler le chargement
+                btnSubmit.disabled = true;
+                btnSubmit.innerText = 'Traitement en cours...';
+
+                setTimeout(() => {
+                    // Cacher la section de paiement et afficher le succès
+                    document.getElementById('paymentSection').style.display = 'none';
+                    document.getElementById('successSection').style.display = 'block';
+                }, 2000);
+            });
+            
+            // Fermer l'onglet au retour si ouvert via window.open
+            document.getElementById('btnReturn').addEventListener('click', (e) => {
+                // Essayer de fermer la fenêtre (fonctionne si ouverte par script)
+                // Sinon rediriger vers index.html
+                if (window.opener) {
+                    e.preventDefault();
+                    window.opener.postMessage({ type: 'PAYMENT_SUCCESS' }, '*');
+                    window.close();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
